@@ -1,0 +1,3607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rural United Real Estates - Savings & Credit</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2980b9;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #1abc9c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --white: #fff;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark);
+            color: var(--white);
+            transition: all 0.3s;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .sidebar-menu ul {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--primary);
+            color: var(--white);
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            width: calc(100% - var(--sidebar-width));
+            margin-left: var(--sidebar-width);
+            transition: all 0.3s;
+        }
+
+        /* Header Styles */
+        header {
+            height: var(--header-height);
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: fixed;
+            width: calc(100% - var(--sidebar-width));
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .user-profile img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-profile span {
+            font-weight: 500;
+        }
+
+        /* Content Styles */
+        .content-wrapper {
+            padding: 20px;
+            margin-top: var(--header-height);
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .page-header h2 {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .badge-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .stats-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 5px;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .stats-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .stats-info h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .stats-info p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .stats-primary {
+            background-color: var(--primary);
+        }
+
+        .stats-success {
+            background-color: var(--success);
+        }
+
+        .stats-warning {
+            background-color: var(--warning);
+        }
+
+        .stats-danger {
+            background-color: var(--danger);
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+
+        .col-md-6 {
+            width: 50%;
+            padding: 0 10px;
+        }
+
+        .col-md-4 {
+            width: 33.33%;
+            padding: 0 10px;
+        }
+
+        .col-md-3 {
+            width: 25%;
+            padding: 0 10px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                margin-left: -250px;
+            }
+            .sidebar.active {
+                margin-left: 0;
+            }
+            .main-content {
+                width: 100%;
+                margin-left: 0;
+            }
+            header {
+                width: 100%;
+            }
+        }
+
+        /* Toggle Button */
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 5px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .modal-body {
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Search Box */
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            padding-left: 40px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        /* Print Styles */
+        @media print {
+            .sidebar, header, .page-header .btn {
+                display: none !important;
+            }
+            .main-content {
+                width: 100%;
+                margin-left: 0;
+            }
+            .content-wrapper {
+                margin-top: 0;
+                padding: 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-hand-holding-usd"></i> Rural United</h3>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="#" class="active" data-target="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#" data-target="members"><i class="fas fa-users"></i> Members</a>
+                    </li>
+                    <li>
+                        <a href="#" data-target="savings"><i class="fas fa-piggy-bank"></i> Savings</a>
+                    </li>
+                    <li>
+                        <a href="#" data-target="loans"><i class="fas fa-hand-holding-usd"></i> Loans</a>
+                    </li>
+                    <li>
+                        <a href="#" data-target="repayments"><i class="fas fa-money-bill-wave"></i> Repayments</a>
+                    </li>
+                    <li>
+                        <a href="#" data-target="transactions"><i class="fas fa-exchange-alt"></i> Transactions</a>
+                    </li>
+                    <li>
+                        <a href="#" data-target="reports"><i class="fas fa-chart-bar"></i> Reports</a>
+                    </li>
+                    <li>
+                        <a href="#" data-target="settings"><i class="fas fa-cog"></i> Settings</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="header-left">
+                    <button class="toggle-sidebar" id="toggleSidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h4 id="pageTitle">Dashboard</h4>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Admin+User&background=3498db&color=fff" alt="User">
+                        <span>Admin User</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Wrapper -->
+            <div class="content-wrapper">
+                <!-- Dashboard Content -->
+                <div id="dashboard-content">
+                    <div class="page-header">
+                        <h2>Dashboard</h2>
+                        <div>
+                            <button class="btn btn-primary"><i class="fas fa-print"></i> Print Report</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="stats-card stats-primary">
+                                <div class="stats-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stats-info">
+                                    <h3 id="totalMembers">0</h3>
+                                    <p>Total Members</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stats-card stats-success">
+                                <div class="stats-icon">
+                                    <i class="fas fa-piggy-bank"></i>
+                                </div>
+                                <div class="stats-info">
+                                    <h3 id="totalSavings">$0</h3>
+                                    <p>Total Savings</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stats-card stats-warning">
+                                <div class="stats-icon">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <div class="stats-info">
+                                    <h3 id="totalLoans">$0</h3>
+                                    <p>Active Loans</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stats-card stats-danger">
+                                <div class="stats-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="stats-info">
+                                    <h3 id="overdueLoans">0</h3>
+                                    <p>Overdue Loans</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Recent Transactions</h3>
+                                    <a href="#" data-target="transactions" class="btn btn-primary btn-sm">View All</a>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Member</th>
+                                                    <th>Type</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="recentTransactions">
+                                                <!-- Recent transactions will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Loan Status</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="loanStatusChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Members Content -->
+                <div id="members-content" class="hidden">
+                    <div class="page-header">
+                        <h2>Members Management</h2>
+                        <div>
+                            <button class="btn btn-primary" id="addMemberBtn"><i class="fas fa-plus"></i> Add Member</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>All Members</h3>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" class="form-control" id="memberSearch" placeholder="Search members...">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Phone</th>
+                                            <th>Joined Date</th>
+                                            <th>Savings Balance</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="membersTable">
+                                        <!-- Members will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Savings Content -->
+                <div id="savings-content" class="hidden">
+                    <div class="page-header">
+                        <h2>Savings Management</h2>
+                        <div>
+                            <button class="btn btn-primary" id="addSavingsBtn"><i class="fas fa-plus"></i> New Deposit</button>
+                            <button class="btn btn-danger" id="addWithdrawalBtn"><i class="fas fa-minus"></i> New Withdrawal</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Savings Accounts</h3>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" class="form-control" id="savingsSearch" placeholder="Search savings...">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Account No.</th>
+                                            <th>Member</th>
+                                            <th>Balance</th>
+                                            <th>Last Activity</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="savingsTable">
+                                        <!-- Savings accounts will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loans Content -->
+                <div id="loans-content" class="hidden">
+                    <div class="page-header">
+                        <h2>Loans Management</h2>
+                        <div>
+                            <button class="btn btn-primary" id="addLoanBtn"><i class="fas fa-plus"></i> New Loan</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>All Loans</h3>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" class="form-control" id="loanSearch" placeholder="Search loans...">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Loan No.</th>
+                                            <th>Member</th>
+                                            <th>Amount</th>
+                                            <th>Disbursed</th>
+                                            <th>Due Date</th>
+                                            <th>Balance</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="loansTable">
+                                        <!-- Loans will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Repayments Content -->
+                <div id="repayments-content" class="hidden">
+                    <div class="page-header">
+                        <h2>Loan Repayments</h2>
+                        <div>
+                            <button class="btn btn-primary" id="addRepaymentBtn"><i class="fas fa-plus"></i> New Repayment</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Repayment History</h3>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" class="form-control" id="repaymentSearch" placeholder="Search repayments...">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Loan No.</th>
+                                            <th>Member</th>
+                                            <th>Amount</th>
+                                            <th>Payment Method</th>
+                                            <th>Received By</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="repaymentsTable">
+                                        <!-- Repayments will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transactions Content -->
+                <div id="transactions-content" class="hidden">
+                    <div class="page-header">
+                        <h2>Transaction History</h2>
+                        <div>
+                            <button class="btn btn-primary" id="printTransactionsBtn"><i class="fas fa-print"></i> Print</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>All Transactions</h3>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" class="form-control" id="transactionSearch" placeholder="Search transactions...">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Transaction ID</th>
+                                            <th>Member</th>
+                                            <th>Type</th>
+                                            <th>Amount</th>
+                                            <th>Description</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="transactionsTable">
+                                        <!-- Transactions will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Content -->
+                <div id="reports-content" class="hidden">
+                    <div class="page-header">
+                        <h2>Reports</h2>
+                        <div>
+                            <button class="btn btn-primary" id="generateReportBtn"><i class="fas fa-file-pdf"></i> Generate Report</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Savings Report</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="savingsReportType">Report Type</label>
+                                        <select class="form-control" id="savingsReportType">
+                                            <option value="daily">Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="yearly">Yearly</option>
+                                            <option value="custom">Custom Date Range</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="savingsCustomDateRange" style="display: none;">
+                                        <label>Date Range</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="date" class="form-control" id="savingsStartDate">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="date" class="form-control" id="savingsEndDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" id="generateSavingsReportBtn">Generate Savings Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Loans Report</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="loansReportType">Report Type</label>
+                                        <select class="form-control" id="loansReportType">
+                                            <option value="active">Active Loans</option>
+                                            <option value="overdue">Overdue Loans</option>
+                                            <option value="repaid">Repaid Loans</option>
+                                            <option value="all">All Loans</option>
+                                            <option value="custom">Custom Date Range</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="loansCustomDateRange" style="display: none;">
+                                        <label>Date Range</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="date" class="form-control" id="loansStartDate">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="date" class="form-control" id="loansEndDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" id="generateLoansReportBtn">Generate Loans Report</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h3>Report Results</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="reportResults">
+                                <p class="text-center text-muted">Generate a report to view results</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Content -->
+                <div id="settings-content" class="hidden">
+                    <div class="page-header">
+                        <h2>System Settings</h2>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Organization Settings</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form id="orgSettingsForm">
+                                        <div class="form-group">
+                                            <label for="orgName">Organization Name</label>
+                                            <input type="text" class="form-control" id="orgName" value="Rural United Real Estates">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="orgAddress">Address</label>
+                                            <input type="text" class="form-control" id="orgAddress">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="orgPhone">Phone</label>
+                                            <input type="text" class="form-control" id="orgPhone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="orgEmail">Email</label>
+                                            <input type="email" class="form-control" id="orgEmail">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="orgCurrency">Currency</label>
+                                            <select class="form-control" id="orgCurrency">
+                                                <option value="$">Dollar ($)</option>
+                                                <option value="€">Euro (€)</option>
+                                                <option value="£">Pound (£)</option>
+                                                <option value="¥">Yen (¥)</option>
+                                                <option value="₦">Naira (₦)</option>
+                                                <option value="KSh">Kenyan Shilling (KSh)</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Loan Settings</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form id="loanSettingsForm">
+                                        <div class="form-group">
+                                            <label for="interestRate">Interest Rate (%)</label>
+                                            <input type="number" class="form-control" id="interestRate" step="0.1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="loanTerm">Default Loan Term (months)</label>
+                                            <input type="number" class="form-control" id="loanTerm">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="penaltyRate">Late Payment Penalty Rate (%)</label>
+                                            <input type="number" class="form-control" id="penaltyRate" step="0.1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="minSavings">Minimum Savings for Loan (%)</label>
+                                            <input type="number" class="form-control" id="minSavings" step="0.1">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h3>System Maintenance</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary btn-block" id="backupBtn"><i class="fas fa-database"></i> Backup Data</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-warning btn-block" id="restoreBtn"><i class="fas fa-history"></i> Restore Data</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-danger btn-block" id="resetBtn"><i class="fas fa-trash"></i> Reset System</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Member Modal -->
+    <div class="modal" id="addMemberModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Member</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addMemberForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="memberFirstName">First Name *</label>
+                                <input type="text" class="form-control" id="memberFirstName" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="memberLastName">Last Name *</label>
+                                <input type="text" class="form-control" id="memberLastName" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberEmail">Email</label>
+                        <input type="email" class="form-control" id="memberEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="memberPhone">Phone *</label>
+                        <input type="tel" class="form-control" id="memberPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberAddress">Address</label>
+                        <textarea class="form-control" id="memberAddress" rows="2"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="memberGender">Gender</label>
+                                <select class="form-control" id="memberGender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="memberDob">Date of Birth</label>
+                                <input type="date" class="form-control" id="memberDob">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberOccupation">Occupation</label>
+                        <input type="text" class="form-control" id="memberOccupation">
+                    </div>
+                    <div class="form-group">
+                        <label for="memberIdType">ID Type</label>
+                        <select class="form-control" id="memberIdType">
+                            <option value="National ID">National ID</option>
+                            <option value="Passport">Passport</option>
+                            <option value="Driver License">Driver License</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberIdNumber">ID Number</label>
+                        <input type="text" class="form-control" id="memberIdNumber">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button class="btn btn-primary" id="saveMemberBtn">Save Member</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Savings Modal -->
+    <div class="modal" id="addSavingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Savings Deposit</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addSavingsForm">
+                    <div class="form-group">
+                        <label for="savingsMember">Member *</label>
+                        <select class="form-control" id="savingsMember" required>
+                            <option value="">Select Member</option>
+                            <!-- Members will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="savingsAmount">Amount *</label>
+                        <input type="number" class="form-control" id="savingsAmount" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="savingsDate">Date *</label>
+                        <input type="date" class="form-control" id="savingsDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="savingsDescription">Description</label>
+                        <textarea class="form-control" id="savingsDescription" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="savingsPaymentMethod">Payment Method *</label>
+                        <select class="form-control" id="savingsPaymentMethod" required>
+                            <option value="Cash">Cash</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Mobile Money">Mobile Money</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="savingsReferenceNumberGroup">
+                        <label for="savingsReferenceNumber">Reference Number</label>
+                        <input type="text" class="form-control" id="savingsReferenceNumber">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button class="btn btn-primary" id="saveSavingsBtn">Save Deposit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Withdrawal Modal -->
+    <div class="modal" id="addWithdrawalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Savings Withdrawal</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addWithdrawalForm">
+                    <div class="form-group">
+                        <label for="withdrawalMember">Member *</label>
+                        <select class="form-control" id="withdrawalMember" required>
+                            <option value="">Select Member</option>
+                            <!-- Members will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="withdrawalAmount">Amount *</label>
+                        <input type="number" class="form-control" id="withdrawalAmount" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="withdrawalDate">Date *</label>
+                        <input type="date" class="form-control" id="withdrawalDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="withdrawalDescription">Description</label>
+                        <textarea class="form-control" id="withdrawalDescription" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="withdrawalPaymentMethod">Payment Method *</label>
+                        <select class="form-control" id="withdrawalPaymentMethod" required>
+                            <option value="Cash">Cash</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Mobile Money">Mobile Money</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button class="btn btn-primary" id="saveWithdrawalBtn">Save Withdrawal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Loan Modal -->
+    <div class="modal" id="addLoanModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Loan Application</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addLoanForm">
+                    <div class="form-group">
+                        <label for="loanMember">Member *</label>
+                        <select class="form-control" id="loanMember" required>
+                            <option value="">Select Member</option>
+                            <!-- Members will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanAmount">Loan Amount *</label>
+                        <input type="number" class="form-control" id="loanAmount" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanPurpose">Purpose *</label>
+                        <input type="text" class="form-control" id="loanPurpose" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="loanInterestRate">Interest Rate (%) *</label>
+                                <input type="number" class="form-control" id="loanInterestRate" step="0.1" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="loanTerm">Term (months) *</label>
+                                <input type="number" class="form-control" id="loanTerm" min="1" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="loanDisbursementDate">Disbursement Date *</label>
+                                <input type="date" class="form-control" id="loanDisbursementDate" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="loanDueDate">Due Date *</label>
+                                <input type="date" class="form-control" id="loanDueDate" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanCollateral">Collateral Description</label>
+                        <textarea class="form-control" id="loanCollateral" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanGuarantor">Guarantor (if any)</label>
+                        <select class="form-control" id="loanGuarantor">
+                            <option value="">Select Guarantor</option>
+                            <!-- Members will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanNotes">Additional Notes</label>
+                        <textarea class="form-control" id="loanNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button class="btn btn-primary" id="saveLoanBtn">Save Loan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Repayment Modal -->
+    <div class="modal" id="addRepaymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Loan Repayment</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addRepaymentForm">
+                    <div class="form-group">
+                        <label for="repaymentLoan">Loan *</label>
+                        <select class="form-control" id="repaymentLoan" required>
+                            <option value="">Select Loan</option>
+                            <!-- Active loans will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="repaymentAmount">Amount *</label>
+                        <input type="number" class="form-control" id="repaymentAmount" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="repaymentDate">Date *</label>
+                        <input type="date" class="form-control" id="repaymentDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="repaymentType">Payment Type *</label>
+                        <select class="form-control" id="repaymentType" required>
+                            <option value="Principal">Principal</option>
+                            <option value="Interest">Interest</option>
+                            <option value="Penalty">Penalty</option>
+                            <option value="Full Payment">Full Payment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="repaymentMethod">Payment Method *</label>
+                        <select class="form-control" id="repaymentMethod" required>
+                            <option value="Cash">Cash</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Mobile Money">Mobile Money</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="repaymentNotes">Notes</label>
+                        <textarea class="form-control" id="repaymentNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button class="btn btn-primary" id="saveRepaymentBtn">Save Repayment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Member Modal -->
+    <div class="modal" id="viewMemberModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Member Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=3498db&color=fff" alt="Member" class="img-fluid rounded-circle">
+                    </div>
+                    <div class="col-md-9">
+                        <h4 id="viewMemberName">John Doe</h4>
+                        <p class="text-muted" id="viewMemberId">Member ID: MEM-001</p>
+                        <p id="viewMemberContact">
+                            <i class="fas fa-phone"></i> +1234567890<br>
+                            <i class="fas fa-envelope"></i> john@example.com
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Personal Information</h5>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Gender:</th>
+                                <td id="viewMemberGender">Male</td>
+                            </tr>
+                            <tr>
+                                <th>Date of Birth:</th>
+                                <td id="viewMemberDob">01/01/1980</td>
+                            </tr>
+                            <tr>
+                                <th>Occupation:</th>
+                                <td id="viewMemberOccupation">Farmer</td>
+                            </tr>
+                            <tr>
+                                <th>ID Type:</th>
+                                <td id="viewMemberIdType">National ID</td>
+                            </tr>
+                            <tr>
+                                <th>ID Number:</th>
+                                <td id="viewMemberIdNumber">12345678</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Address Information</h5>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Address:</th>
+                                <td id="viewMemberAddress">123 Main St, City</td>
+                            </tr>
+                            <tr>
+                                <th>Joined Date:</th>
+                                <td id="viewMemberJoinDate">01/01/2023</td>
+                            </tr>
+                            <tr>
+                                <th>Status:</th>
+                                <td><span class="badge badge-success" id="viewMemberStatus">Active</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h5>Savings Account</h5>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Account No.</th>
+                                <th>Balance</th>
+                                <th>Last Activity</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="viewMemberSavings">
+                            <!-- Savings info will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4">
+                    <h5>Loan History</h5>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Loan No.</th>
+                                <th>Amount</th>
+                                <th>Disbursed</th>
+                                <th>Due Date</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="viewMemberLoans">
+                            <!-- Loans info will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Close</button>
+                <button class="btn btn-primary" id="editMemberBtn">Edit Member</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Loan Modal -->
+    <div class="modal" id="viewLoanModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Loan Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <h4 id="viewLoanNumber">Loan #LN-001</h4>
+                        <p class="text-muted" id="viewLoanMember">Member: John Doe (MEM-001)</p>
+                        <p id="viewLoanDates">
+                            <span id="viewLoanDisbursement">Disbursed: 01/01/2023</span><br>
+                            <span id="viewLoanDueDate">Due Date: 01/07/2023</span>
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <h3 id="viewLoanAmount">$5,000.00</h3>
+                        <span class="badge badge-success" id="viewLoanStatus">Active</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Loan Information</h5>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Purpose:</th>
+                                <td id="viewLoanPurpose">Business Expansion</td>
+                            </tr>
+                            <tr>
+                                <th>Interest Rate:</th>
+                                <td id="viewLoanInterestRate">10%</td>
+                            </tr>
+                            <tr>
+                                <th>Term:</th>
+                                <td id="viewLoanTerm">6 months</td>
+                            </tr>
+                            <tr>
+                                <th>Total Repayable:</th>
+                                <td id="viewLoanTotalRepayable">$5,250.00</td>
+                            </tr>
+                            <tr>
+                                <th>Balance:</th>
+                                <td id="viewLoanBalance">$3,500.00</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Security Information</h5>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Collateral:</th>
+                                <td id="viewLoanCollateral">Land Title Deed</td>
+                            </tr>
+                            <tr>
+                                <th>Guarantor:</th>
+                                <td id="viewLoanGuarantor">Jane Smith (MEM-002)</td>
+                            </tr>
+                            <tr>
+                                <th>Approved By:</th>
+                                <td id="viewLoanApprovedBy">Admin User</td>
+                            </tr>
+                            <tr>
+                                <th>Notes:</th>
+                                <td id="viewLoanNotes">Urgent business needs</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h5>Repayment Schedule</h5>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Due Date</th>
+                                <th>Amount Due</th>
+                                <th>Principal</th>
+                                <th>Interest</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="viewLoanSchedule">
+                            <!-- Repayment schedule will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4">
+                    <h5>Payment History</h5>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Method</th>
+                                <th>Received By</th>
+                            </tr>
+                        </thead>
+                        <tbody id="viewLoanPayments">
+                            <!-- Payment history will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Close</button>
+                <button class="btn btn-primary" id="addRepaymentFromLoanBtn">Add Repayment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backup/Restore Modal -->
+    <div class="modal" id="backupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="backupModalTitle">Backup Data</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="backupContent">
+                    <p>This will create a backup of all system data that you can restore later.</p>
+                    <div class="form-group">
+                        <label for="backupName">Backup Name</label>
+                        <input type="text" class="form-control" id="backupName" placeholder="Enter backup name">
+                    </div>
+                    <div class="form-group">
+                        <label for="backupDescription">Description (optional)</label>
+                        <textarea class="form-control" id="backupDescription" rows="2" placeholder="Enter description"></textarea>
+                    </div>
+                </div>
+                <div id="restoreContent" style="display: none;">
+                    <p>Select a backup file to restore:</p>
+                    <div class="form-group">
+                        <input type="file" class="form-control" id="restoreFile">
+                    </div>
+                    <div class="alert alert-danger">
+                        <strong>Warning:</strong> Restoring will overwrite all current data. Make sure to backup first if needed.
+                    </div>
+                </div>
+                <div id="resetContent" style="display: none;">
+                    <div class="alert alert-danger">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Warning!</h4>
+                        <p>This action will permanently delete all data in the system and restore factory settings. This cannot be undone.</p>
+                        <p>Please confirm you want to proceed by typing <strong>RESET</strong> in the box below:</p>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="resetConfirmation" placeholder="Type RESET to confirm">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button class="btn btn-primary" id="confirmBackupBtn">Create Backup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const navLinks = document.querySelectorAll('.sidebar-menu a');
+        const pageTitle = document.getElementById('pageTitle');
+        const contentSections = document.querySelectorAll('.content-wrapper > div');
+        
+        // Modal Elements
+        const modals = document.querySelectorAll('.modal');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        const addMemberBtn = document.getElementById('addMemberBtn');
+        const addMemberModal = document.getElementById('addMemberModal');
+        const addSavingsBtn = document.getElementById('addSavingsBtn');
+        const addSavingsModal = document.getElementById('addSavingsModal');
+        const addWithdrawalBtn = document.getElementById('addWithdrawalBtn');
+        const addWithdrawalModal = document.getElementById('addWithdrawalModal');
+        const addLoanBtn = document.getElementById('addLoanBtn');
+        const addLoanModal = document.getElementById('addLoanModal');
+        const addRepaymentBtn = document.getElementById('addRepaymentBtn');
+        const addRepaymentModal = document.getElementById('addRepaymentModal');
+        const viewMemberModal = document.getElementById('viewMemberModal');
+        const viewLoanModal = document.getElementById('viewLoanModal');
+        const backupModal = document.getElementById('backupModal');
+        const backupBtn = document.getElementById('backupBtn');
+        const restoreBtn = document.getElementById('restoreBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        // Form Elements
+        const addMemberForm = document.getElementById('addMemberForm');
+        const addSavingsForm = document.getElementById('addSavingsForm');
+        const addWithdrawalForm = document.getElementById('addWithdrawalForm');
+        const addLoanForm = document.getElementById('addLoanForm');
+        const addRepaymentForm = document.getElementById('addRepaymentForm');
+        const orgSettingsForm = document.getElementById('orgSettingsForm');
+        const loanSettingsForm = document.getElementById('loanSettingsForm');
+        
+        // Chart Element
+        const loanStatusChartCtx = document.getElementById('loanStatusChart').getContext('2d');
+        let loanStatusChart;
+        
+        // Data Storage
+        let members = JSON.parse(localStorage.getItem('members')) || [];
+        let savings = JSON.parse(localStorage.getItem('savings')) || [];
+        let loans = JSON.parse(localStorage.getItem('loans')) || [];
+        let repayments = JSON.parse(localStorage.getItem('repayments')) || [];
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let settings = JSON.parse(localStorage.getItem('settings')) || {
+            orgName: "Rural United Real Estates",
+            orgAddress: "",
+            orgPhone: "",
+            orgEmail: "",
+            orgCurrency: "$",
+            interestRate: 10,
+            loanTerm: 6,
+            penaltyRate: 2,
+            minSavings: 20
+        };
+        
+        // Initialize the application
+        function init() {
+            // Load sample data if empty
+            if (members.length === 0) {
+                loadSampleData();
+            }
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Load initial data
+            loadDashboardData();
+            loadMembersTable();
+            loadSavingsTable();
+            loadLoansTable();
+            loadRepaymentsTable();
+            loadTransactionsTable();
+            loadSettings();
+            
+            // Initialize chart
+            initLoanStatusChart();
+        }
+        
+        // Load sample data for demonstration
+        function loadSampleData() {
+            // Sample members
+            members = [
+                {
+                    id: generateId('MEM'),
+                    firstName: "John",
+                    lastName: "Doe",
+                    email: "john@example.com",
+                    phone: "1234567890",
+                    address: "123 Main St, City",
+                    gender: "Male",
+                    dob: "1980-01-01",
+                    occupation: "Farmer",
+                    idType: "National ID",
+                    idNumber: "12345678",
+                    joinDate: new Date().toISOString().split('T')[0],
+                    status: "Active"
+                },
+                {
+                    id: generateId('MEM'),
+                    firstName: "Jane",
+                    lastName: "Smith",
+                    email: "jane@example.com",
+                    phone: "0987654321",
+                    address: "456 Oak Ave, Town",
+                    gender: "Female",
+                    dob: "1985-05-15",
+                    occupation: "Teacher",
+                    idType: "Passport",
+                    idNumber: "P987654",
+                    joinDate: new Date().toISOString().split('T')[0],
+                    status: "Active"
+                },
+                {
+                    id: generateId('MEM'),
+                    firstName: "Robert",
+                    lastName: "Johnson",
+                    email: "robert@example.com",
+                    phone: "5551234567",
+                    address: "789 Pine Rd, Village",
+                    gender: "Male",
+                    dob: "1975-11-20",
+                    occupation: "Trader",
+                    idType: "Driver License",
+                    idNumber: "DL456789",
+                    joinDate: new Date().toISOString().split('T')[0],
+                    status: "Inactive"
+                }
+            ];
+            
+            // Sample savings
+            savings = [
+                {
+                    id: generateId('SAV'),
+                    memberId: members[0].id,
+                    balance: 1500,
+                    lastActivity: new Date().toISOString().split('T')[0],
+                    status: "Active"
+                },
+                {
+                    id: generateId('SAV'),
+                    memberId: members[1].id,
+                    balance: 2500,
+                    lastActivity: new Date().toISOString().split('T')[0],
+                    status: "Active"
+                },
+                {
+                    id: generateId('SAV'),
+                    memberId: members[2].id,
+                    balance: 500,
+                    lastActivity: "2023-05-15",
+                    status: "Inactive"
+                }
+            ];
+            
+            // Sample loans
+            const today = new Date();
+            const dueDate = new Date();
+            dueDate.setMonth(today.getMonth() + 6);
+            
+            loans = [
+                {
+                    id: generateId('LN'),
+                    memberId: members[0].id,
+                    amount: 5000,
+                    purpose: "Business Expansion",
+                    interestRate: 10,
+                    term: 6,
+                    disbursementDate: today.toISOString().split('T')[0],
+                    dueDate: dueDate.toISOString().split('T')[0],
+                    balance: 3500,
+                    status: "Active",
+                    collateral: "Land Title Deed",
+                    guarantor: members[1].id,
+                    notes: "Urgent business needs",
+                    approvedBy: "Admin User"
+                },
+                {
+                    id: generateId('LN'),
+                    memberId: members[1].id,
+                    amount: 3000,
+                    purpose: "School Fees",
+                    interestRate: 10,
+                    term: 12,
+                    disbursementDate: "2023-01-15",
+                    dueDate: "2024-01-15",
+                    balance: 0,
+                    status: "Repaid",
+                    collateral: "",
+                    guarantor: "",
+                    notes: "For children's education",
+                    approvedBy: "Admin User"
+                },
+                {
+                    id: generateId('LN'),
+                    memberId: members[2].id,
+                    amount: 2000,
+                    purpose: "Medical Bills",
+                    interestRate: 10,
+                    term: 3,
+                    disbursementDate: "2023-03-01",
+                    dueDate: "2023-06-01",
+                    balance: 1000,
+                    status: "Overdue",
+                    collateral: "",
+                    guarantor: members[0].id,
+                    notes: "Hospital emergency",
+                    approvedBy: "Admin User"
+                }
+            ];
+            
+            // Sample repayments
+            repayments = [
+                {
+                    id: generateId('REP'),
+                    loanId: loans[0].id,
+                    amount: 1500,
+                    date: "2023-04-15",
+                    type: "Principal",
+                    method: "Cash",
+                    notes: "First installment",
+                    receivedBy: "Admin User"
+                },
+                {
+                    id: generateId('REP'),
+                    loanId: loans[1].id,
+                    amount: 3000,
+                    date: "2023-07-15",
+                    type: "Full Payment",
+                    method: "Bank Transfer",
+                    notes: "Full repayment",
+                    receivedBy: "Admin User"
+                },
+                {
+                    id: generateId('REP'),
+                    loanId: loans[2].id,
+                    amount: 1000,
+                    date: "2023-04-01",
+                    type: "Principal",
+                    method: "Mobile Money",
+                    notes: "Partial payment",
+                    receivedBy: "Admin User"
+                }
+            ];
+            
+            // Sample transactions
+            transactions = [
+                {
+                    id: generateId('TRN'),
+                    date: new Date().toISOString().split('T')[0],
+                    memberId: members[0].id,
+                    type: "Savings Deposit",
+                    amount: 500,
+                    description: "Monthly savings",
+                    reference: "SAV-" + Date.now()
+                },
+                {
+                    id: generateId('TRN'),
+                    date: new Date().toISOString().split('T')[0],
+                    memberId: members[1].id,
+                    type: "Savings Deposit",
+                    amount: 1000,
+                    description: "Quarterly savings",
+                    reference: "SAV-" + Date.now()
+                },
+                {
+                    id: generateId('TRN'),
+                    date: "2023-04-15",
+                    memberId: members[0].id,
+                    type: "Loan Repayment",
+                    amount: 1500,
+                    description: "Loan LN-001 repayment",
+                    reference: "REP-" + Date.now()
+                },
+                {
+                    id: generateId('TRN'),
+                    date: "2023-07-15",
+                    memberId: members[1].id,
+                    type: "Loan Repayment",
+                    amount: 3000,
+                    description: "Loan LN-002 full repayment",
+                    reference: "REP-" + Date.now()
+                }
+            ];
+            
+            // Save to localStorage
+            saveData();
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Toggle sidebar
+            toggleSidebar.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+            
+            // Navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('data-target');
+                    
+                    // Update active link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Update page title
+                    pageTitle.textContent = link.textContent.trim();
+                    
+                    // Show corresponding content
+                    contentSections.forEach(section => {
+                        section.classList.add('hidden');
+                        if (section.id === `${target}-content`) {
+                            section.classList.remove('hidden');
+                        }
+                    });
+                    
+                    // Close sidebar on mobile
+                    if (window.innerWidth < 992) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Modal close buttons
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    modals.forEach(modal => modal.style.display = 'none');
+                });
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+            
+            // Add member button
+            addMemberBtn.addEventListener('click', () => {
+                addMemberModal.style.display = 'flex';
+            });
+            
+            // Save member button
+            document.getElementById('saveMemberBtn').addEventListener('click', saveMember);
+            
+            // Add savings button
+            addSavingsBtn.addEventListener('click', () => {
+                populateMemberDropdown('savingsMember');
+                document.getElementById('savingsDate').value = new Date().toISOString().split('T')[0];
+                addSavingsModal.style.display = 'flex';
+            });
+            
+            // Add withdrawal button
+            addWithdrawalBtn.addEventListener('click', () => {
+                populateMemberDropdown('withdrawalMember');
+                document.getElementById('withdrawalDate').value = new Date().toISOString().split('T')[0];
+                addWithdrawalModal.style.display = 'flex';
+            });
+            
+            // Add loan button
+            addLoanBtn.addEventListener('click', () => {
+                populateMemberDropdown('loanMember');
+                populateMemberDropdown('loanGuarantor', true);
+                
+                const today = new Date().toISOString().split('T')[0];
+                const dueDate = new Date();
+                dueDate.setMonth(dueDate.getMonth() + settings.loanTerm);
+                
+                document.getElementById('loanDisbursementDate').value = today;
+                document.getElementById('loanDueDate').value = dueDate.toISOString().split('T')[0];
+                document.getElementById('loanInterestRate').value = settings.interestRate;
+                document.getElementById('loanTerm').value = settings.loanTerm;
+                
+                addLoanModal.style.display = 'flex';
+            });
+            
+            // Add repayment button
+            addRepaymentBtn.addEventListener('click', () => {
+                populateLoanDropdown('repaymentLoan');
+                document.getElementById('repaymentDate').value = new Date().toISOString().split('T')[0];
+                addRepaymentModal.style.display = 'flex';
+            });
+            
+            // Save savings button
+            document.getElementById('saveSavingsBtn').addEventListener('click', saveSavings);
+            
+            // Save withdrawal button
+            document.getElementById('saveWithdrawalBtn').addEventListener('click', saveWithdrawal);
+            
+            // Save loan button
+            document.getElementById('saveLoanBtn').addEventListener('click', saveLoan);
+            
+            // Save repayment button
+            document.getElementById('saveRepaymentBtn').addEventListener('click', saveRepayment);
+            
+            // Settings forms
+            orgSettingsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                saveOrgSettings();
+            });
+            
+            loanSettingsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                saveLoanSettings();
+            });
+            
+            // Backup/Restore buttons
+            backupBtn.addEventListener('click', () => {
+                document.getElementById('backupModalTitle').textContent = 'Backup Data';
+                document.getElementById('backupContent').style.display = 'block';
+                document.getElementById('restoreContent').style.display = 'none';
+                document.getElementById('resetContent').style.display = 'none';
+                document.getElementById('confirmBackupBtn').textContent = 'Create Backup';
+                document.getElementById('confirmBackupBtn').onclick = createBackup;
+                backupModal.style.display = 'flex';
+            });
+            
+            restoreBtn.addEventListener('click', () => {
+                document.getElementById('backupModalTitle').textContent = 'Restore Data';
+                document.getElementById('backupContent').style.display = 'none';
+                document.getElementById('restoreContent').style.display = 'block';
+                document.getElementById('resetContent').style.display = 'none';
+                document.getElementById('confirmBackupBtn').textContent = 'Restore Data';
+                document.getElementById('confirmBackupBtn').onclick = restoreBackup;
+                backupModal.style.display = 'flex';
+            });
+            
+            resetBtn.addEventListener('click', () => {
+                document.getElementById('backupModalTitle').textContent = 'Reset System';
+                document.getElementById('backupContent').style.display = 'none';
+                document.getElementById('restoreContent').style.display = 'none';
+                document.getElementById('resetContent').style.display = 'block';
+                document.getElementById('confirmBackupBtn').textContent = 'Reset System';
+                document.getElementById('confirmBackupBtn').onclick = resetSystem;
+                backupModal.style.display = 'flex';
+            });
+            
+            // Report type change handlers
+            document.getElementById('savingsReportType').addEventListener('change', (e) => {
+                document.getElementById('savingsCustomDateRange').style.display = 
+                    e.target.value === 'custom' ? 'block' : 'none';
+            });
+            
+            document.getElementById('loansReportType').addEventListener('change', (e) => {
+                document.getElementById('loansCustomDateRange').style.display = 
+                    e.target.value === 'custom' ? 'block' : 'none';
+            });
+            
+            // Generate report buttons
+            document.getElementById('generateSavingsReportBtn').addEventListener('click', generateSavingsReport);
+            document.getElementById('generateLoansReportBtn').addEventListener('click', generateLoansReport);
+            
+            // Search functionality
+            document.getElementById('memberSearch').addEventListener('input', filterMembers);
+            document.getElementById('savingsSearch').addEventListener('input', filterSavings);
+            document.getElementById('loanSearch').addEventListener('input', filterLoans);
+            document.getElementById('repaymentSearch').addEventListener('input', filterRepayments);
+            document.getElementById('transactionSearch').addEventListener('input', filterTransactions);
+            
+            // Print transactions button
+            document.getElementById('printTransactionsBtn').addEventListener('click', () => {
+                window.print();
+            });
+        }
+        
+        // Generate a unique ID
+        function generateId(prefix) {
+            return `${prefix}-${Date.now()}`;
+        }
+        
+        // Save all data to localStorage
+        function saveData() {
+            localStorage.setItem('members', JSON.stringify(members));
+            localStorage.setItem('savings', JSON.stringify(savings));
+            localStorage.setItem('loans', JSON.stringify(loans));
+            localStorage.setItem('repayments', JSON.stringify(repayments));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            localStorage.setItem('settings', JSON.stringify(settings));
+        }
+        
+        // Load dashboard data
+        function loadDashboardData() {
+            // Update stats
+            document.getElementById('totalMembers').textContent = members.length;
+            
+            const totalSavings = savings.reduce((sum, account) => sum + account.balance, 0);
+            document.getElementById('totalSavings').textContent = `${settings.orgCurrency}${totalSavings.toLocaleString()}`;
+            
+            const activeLoans = loans.filter(loan => loan.status === 'Active');
+            const totalLoans = activeLoans.reduce((sum, loan) => sum + loan.balance, 0);
+            document.getElementById('totalLoans').textContent = `${settings.orgCurrency}${totalLoans.toLocaleString()}`;
+            
+            const overdueLoans = loans.filter(loan => loan.status === 'Overdue').length;
+            document.getElementById('overdueLoans').textContent = overdueLoans;
+            
+            // Load recent transactions
+            const recentTransactions = [...transactions]
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5);
+            
+            const transactionsTable = document.getElementById('recentTransactions');
+            transactionsTable.innerHTML = '';
+            
+            recentTransactions.forEach(transaction => {
+                const member = members.find(m => m.id === transaction.memberId);
+                const memberName = member ? `${member.firstName} ${member.lastName}` : 'Unknown';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${formatDate(transaction.date)}</td>
+                    <td>${memberName}</td>
+                    <td>${transaction.type}</td>
+                    <td>${settings.orgCurrency}${transaction.amount.toLocaleString()}</td>
+                `;
+                transactionsTable.appendChild(row);
+            });
+            
+            // Update chart
+            updateLoanStatusChart();
+        }
+        
+        // Initialize loan status chart
+        function initLoanStatusChart() {
+            loanStatusChart = new Chart(loanStatusChartCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Active', 'Repaid', 'Overdue'],
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.8)',
+                            'rgba(46, 204, 113, 0.8)',
+                            'rgba(231, 76, 60, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(231, 76, 60, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Update loan status chart
+        function updateLoanStatusChart() {
+            const activeLoans = loans.filter(loan => loan.status === 'Active').length;
+            const repaidLoans = loans.filter(loan => loan.status === 'Repaid').length;
+            const overdueLoans = loans.filter(loan => loan.status === 'Overdue').length;
+            
+            loanStatusChart.data.datasets[0].data = [activeLoans, repaidLoans, overdueLoans];
+            loanStatusChart.update();
+        }
+        
+        // Load members table
+        function loadMembersTable() {
+            const table = document.getElementById('membersTable');
+            table.innerHTML = '';
+            
+            members.forEach(member => {
+                const savingsAccount = savings.find(account => account.memberId === member.id);
+                const balance = savingsAccount ? savingsAccount.balance : 0;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${member.id}</td>
+                    <td>${member.firstName} ${member.lastName}</td>
+                    <td>${member.phone}</td>
+                    <td>${formatDate(member.joinDate)}</td>
+                    <td>${settings.orgCurrency}${balance.toLocaleString()}</td>
+                    <td><span class="badge ${member.status === 'Active' ? 'badge-success' : 'badge-danger'}">${member.status}</span></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm view-member" data-id="${member.id}"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-info btn-sm edit-member" data-id="${member.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm delete-member" data-id="${member.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.view-member').forEach(btn => {
+                btn.addEventListener('click', () => viewMember(btn.getAttribute('data-id')));
+            });
+            
+            document.querySelectorAll('.edit-member').forEach(btn => {
+                btn.addEventListener('click', () => editMember(btn.getAttribute('data-id')));
+            });
+            
+            document.querySelectorAll('.delete-member').forEach(btn => {
+                btn.addEventListener('click', () => deleteMember(btn.getAttribute('data-id')));
+            });
+        }
+        
+        // Load savings table
+        function loadSavingsTable() {
+            const table = document.getElementById('savingsTable');
+            table.innerHTML = '';
+            
+            savings.forEach(account => {
+                const member = members.find(m => m.id === account.memberId);
+                const memberName = member ? `${member.firstName} ${member.lastName}` : 'Unknown';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${account.id}</td>
+                    <td>${memberName}</td>
+                    <td>${settings.orgCurrency}${account.balance.toLocaleString()}</td>
+                    <td>${formatDate(account.lastActivity)}</td>
+                    <td><span class="badge ${account.status === 'Active' ? 'badge-success' : 'badge-danger'}">${account.status}</span></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm view-savings" data-id="${account.id}"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-info btn-sm edit-savings" data-id="${account.id}"><i class="fas fa-edit"></i></button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.view-savings').forEach(btn => {
+                btn.addEventListener('click', () => viewSavings(btn.getAttribute('data-id')));
+            });
+            
+            document.querySelectorAll('.edit-savings').forEach(btn => {
+                btn.addEventListener('click', () => editSavings(btn.getAttribute('data-id')));
+            });
+        }
+        
+        // Load loans table
+        function loadLoansTable() {
+            const table = document.getElementById('loansTable');
+            table.innerHTML = '';
+            
+            loans.forEach(loan => {
+                const member = members.find(m => m.id === loan.memberId);
+                const memberName = member ? `${member.firstName} ${member.lastName}` : 'Unknown';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${loan.id}</td>
+                    <td>${memberName}</td>
+                    <td>${settings.orgCurrency}${loan.amount.toLocaleString()}</td>
+                    <td>${formatDate(loan.disbursementDate)}</td>
+                    <td>${formatDate(loan.dueDate)}</td>
+                    <td>${settings.orgCurrency}${loan.balance.toLocaleString()}</td>
+                    <td>
+                        <span class="badge ${
+                            loan.status === 'Active' ? 'badge-primary' : 
+                            loan.status === 'Repaid' ? 'badge-success' : 
+                            'badge-danger'
+                        }">${loan.status}</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm view-loan" data-id="${loan.id}"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-info btn-sm edit-loan" data-id="${loan.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm delete-loan" data-id="${loan.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.view-loan').forEach(btn => {
+                btn.addEventListener('click', () => viewLoan(btn.getAttribute('data-id')));
+            });
+            
+            document.querySelectorAll('.edit-loan').forEach(btn => {
+                btn.addEventListener('click', () => editLoan(btn.getAttribute('data-id')));
+            });
+            
+            document.querySelectorAll('.delete-loan').forEach(btn => {
+                btn.addEventListener('click', () => deleteLoan(btn.getAttribute('data-id')));
+            });
+        }
+        
+        // Load repayments table
+        function loadRepaymentsTable() {
+            const table = document.getElementById('repaymentsTable');
+            table.innerHTML = '';
+            
+            repayments.forEach(repayment => {
+                const loan = loans.find(l => l.id === repayment.loanId);
+                const member = loan ? members.find(m => m.id === loan.memberId) : null;
+                const memberName = member ? `${member.firstName} ${member.lastName}` : 'Unknown';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${formatDate(repayment.date)}</td>
+                    <td>${loan ? loan.id : 'Unknown'}</td>
+                    <td>${memberName}</td>
+                    <td>${settings.orgCurrency}${repayment.amount.toLocaleString()}</td>
+                    <td>${repayment.method}</td>
+                    <td>${repayment.receivedBy}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm edit-repayment" data-id="${repayment.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm delete-repayment" data-id="${repayment.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.edit-repayment').forEach(btn => {
+                btn.addEventListener('click', () => editRepayment(btn.getAttribute('data-id')));
+            });
+            
+            document.querySelectorAll('.delete-repayment').forEach(btn => {
+                btn.addEventListener('click', () => deleteRepayment(btn.getAttribute('data-id')));
+            });
+        }
+        
+        // Load transactions table
+        function loadTransactionsTable() {
+            const table = document.getElementById('transactionsTable');
+            table.innerHTML = '';
+            
+            transactions.forEach(transaction => {
+                const member = members.find(m => m.id === transaction.memberId);
+                const memberName = member ? `${member.firstName} ${member.lastName}` : 'Unknown';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${formatDate(transaction.date)}</td>
+                    <td>${transaction.id}</td>
+                    <td>${memberName}</td>
+                    <td>${transaction.type}</td>
+                    <td>${settings.orgCurrency}${transaction.amount.toLocaleString()}</td>
+                    <td>${transaction.description}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm edit-transaction" data-id="${transaction.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm delete-transaction" data-id="${transaction.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.edit-transaction').forEach(btn => {
+                btn.addEventListener('click', () => editTransaction(btn.getAttribute('data-id')));
+            });
+            
+            document.querySelectorAll('.delete-transaction').forEach(btn => {
+                btn.addEventListener('click', () => deleteTransaction(btn.getAttribute('data-id')));
+            });
+        }
+        
+        // Load settings
+        function loadSettings() {
+            document.getElementById('orgName').value = settings.orgName;
+            document.getElementById('orgAddress').value = settings.orgAddress;
+            document.getElementById('orgPhone').value = settings.orgPhone;
+            document.getElementById('orgEmail').value = settings.orgEmail;
+            document.getElementById('orgCurrency').value = settings.orgCurrency;
+            
+            document.getElementById('interestRate').value = settings.interestRate;
+            document.getElementById('loanTerm').value = settings.loanTerm;
+            document.getElementById('penaltyRate').value = settings.penaltyRate;
+            document.getElementById('minSavings').value = settings.minSavings;
+        }
+        
+        // Save organization settings
+        function saveOrgSettings() {
+            settings.orgName = document.getElementById('orgName').value;
+            settings.orgAddress = document.getElementById('orgAddress').value;
+            settings.orgPhone = document.getElementById('orgPhone').value;
+            settings.orgEmail = document.getElementById('orgEmail').value;
+            settings.orgCurrency = document.getElementById('orgCurrency').value;
+            
+            saveData();
+            showAlert('Organization settings saved successfully!', 'success');
+        }
+        
+        // Save loan settings
+        function saveLoanSettings() {
+            settings.interestRate = parseFloat(document.getElementById('interestRate').value);
+            settings.loanTerm = parseInt(document.getElementById('loanTerm').value);
+            settings.penaltyRate = parseFloat(document.getElementById('penaltyRate').value);
+            settings.minSavings = parseFloat(document.getElementById('minSavings').value);
+            
+            saveData();
+            showAlert('Loan settings saved successfully!', 'success');
+        }
+        
+        // Populate member dropdown
+        function populateMemberDropdown(dropdownId, excludeGuarantor = false) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.innerHTML = '<option value="">Select Member</option>';
+            
+            members.forEach(member => {
+                if (!excludeGuarantor || member.status === 'Active') {
+                    const option = document.createElement('option');
+                    option.value = member.id;
+                    option.textContent = `${member.firstName} ${member.lastName} (${member.id})`;
+                    dropdown.appendChild(option);
+                }
+            });
+        }
+        
+        // Populate loan dropdown
+        function populateLoanDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.innerHTML = '<option value="">Select Loan</option>';
+            
+            const activeLoans = loans.filter(loan => loan.status === 'Active' || loan.status === 'Overdue');
+            
+            activeLoans.forEach(loan => {
+                const member = members.find(m => m.id === loan.memberId);
+                const memberName = member ? `${member.firstName} ${member.lastName}` : 'Unknown';
+                
+                const option = document.createElement('option');
+                option.value = loan.id;
+                option.textContent = `${loan.id} - ${memberName} (${settings.orgCurrency}${loan.balance.toLocaleString()} due)`;
+                dropdown.appendChild(option);
+            });
+        }
+        
+        // Save new member
+        function saveMember() {
+            const firstName = document.getElementById('memberFirstName').value.trim();
+            const lastName = document.getElementById('memberLastName').value.trim();
+            const phone = document.getElementById('memberPhone').value.trim();
+            
+            if (!firstName || !lastName || !phone) {
+                showAlert('Please fill in all required fields', 'danger');
+                return;
+            }
+            
+            const newMember = {
+                id: generateId('MEM'),
+                firstName,
+                lastName,
+                email: document.getElementById('memberEmail').value.trim(),
+                phone,
+                address: document.getElementById('memberAddress').value.trim(),
+                gender: document.getElementById('memberGender').value,
+                dob: document.getElementById('memberDob').value,
+                occupation: document.getElementById('memberOccupation').value.trim(),
+                idType: document.getElementById('memberIdType').value,
+                idNumber: document.getElementById('memberIdNumber').value.trim(),
+                joinDate: new Date().toISOString().split('T')[0],
+                status: 'Active'
+            };
+            
+            members.push(newMember);
+            
+            // Create a savings account for the new member
+            const newSavingsAccount = {
+                id: generateId('SAV'),
+                memberId: newMember.id,
+                balance: 0,
+                lastActivity: new Date().toISOString().split('T')[0],
+                status: 'Active'
+            };
+            
+            savings.push(newSavingsAccount);
+            
+            saveData();
+            loadMembersTable();
+            loadSavingsTable();
+            loadDashboardData();
+            
+            addMemberModal.style.display = 'none';
+            addMemberForm.reset();
+            
+            showAlert('Member added successfully!', 'success');
+        }
+        
+        // Save new savings deposit
+        function saveSavings() {
+            const memberId = document.getElementById('savingsMember').value;
+            const amount = parseFloat(document.getElementById('savingsAmount').value);
+            const date = document.getElementById('savingsDate').value;
+            const description = document.getElementById('savingsDescription').value.trim();
+            const paymentMethod = document.getElementById('savingsPaymentMethod').value;
+            const referenceNumber = document.getElementById('savingsReferenceNumber').value.trim();
+            
+            if (!memberId || !amount || !date || !paymentMethod) {
+                showAlert('Please fill in all required fields', 'danger');
+                return;
+            }
+            
+            if (amount <= 0) {
+                showAlert('Amount must be greater than zero', 'danger');
+                return;
+            }
+            
+            // Find member's savings account
+            const savingsAccount = savings.find(account => account.memberId === memberId);
+            
+            if (!savingsAccount) {
+                showAlert('Savings account not found for this member', 'danger');
+                return;
+            }
+            
+            // Update savings account
+            savingsAccount.balance += amount;
+            savingsAccount.lastActivity = date;
+            
+            // Create transaction
+            const transaction = {
+                id: generateId('TRN'),
+                date,
+                memberId,
+                type: 'Savings Deposit',
+                amount,
+                description: description || 'Savings deposit',
+                reference: referenceNumber || `SAV-${Date.now()}`
+            };
+            
+            transactions.push(transaction);
+            
+            saveData();
+            loadSavingsTable();
+            loadTransactionsTable();
+            loadDashboardData();
+            
+            addSavingsModal.style.display = 'none';
+            addSavingsForm.reset();
+            
+            showAlert('Savings deposit recorded successfully!', 'success');
+        }
+        
+        // Save new savings withdrawal
+        function saveWithdrawal() {
+            const memberId = document.getElementById('withdrawalMember').value;
+            const amount = parseFloat(document.getElementById('withdrawalAmount').value);
+            const date = document.getElementById('withdrawalDate').value;
+            const description = document.getElementById('withdrawalDescription').value.trim();
+            const paymentMethod = document.getElementById('withdrawalPaymentMethod').value;
+            
+            if (!memberId || !amount || !date || !paymentMethod) {
+                showAlert('Please fill in all required fields', 'danger');
+                return;
+            }
+            
+            if (amount <= 0) {
+                showAlert('Amount must be greater than zero', 'danger');
+                return;
+            }
+            
+            // Find member's savings account
+            const savingsAccount = savings.find(account => account.memberId === memberId);
+            
+            if (!savingsAccount) {
+                showAlert('Savings account not found for this member', 'danger');
+                return;
+            }
+            
+            if (savingsAccount.balance < amount) {
+                showAlert('Insufficient funds in savings account', 'danger');
+                return;
+            }
+            
+            // Update savings account
+            savingsAccount.balance -= amount;
+            savingsAccount.lastActivity = date;
+            
+            // Create transaction
+            const transaction = {
+                id: generateId('TRN'),
+                date,
+                memberId,
+                type: 'Savings Withdrawal',
+                amount,
+                description: description || 'Savings withdrawal',
+                reference: `WTH-${Date.now()}`
+            };
+            
+            transactions.push(transaction);
+            
+            saveData();
+            loadSavingsTable();
+            loadTransactionsTable();
+            loadDashboardData();
+            
+            addWithdrawalModal.style.display = 'none';
+            addWithdrawalForm.reset();
+            
+            showAlert('Savings withdrawal recorded successfully!', 'success');
+        }
+        
+        // Save new loan
+        function saveLoan() {
+            const memberId = document.getElementById('loanMember').value;
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const purpose = document.getElementById('loanPurpose').value.trim();
+            const interestRate = parseFloat(document.getElementById('loanInterestRate').value);
+            const term = parseInt(document.getElementById('loanTerm').value);
+            const disbursementDate = document.getElementById('loanDisbursementDate').value;
+            const dueDate = document.getElementById('loanDueDate').value;
+            const collateral = document.getElementById('loanCollateral').value.trim();
+            const guarantor = document.getElementById('loanGuarantor').value;
+            const notes = document.getElementById('loanNotes').value.trim();
+            
+            if (!memberId || !amount || !purpose || !interestRate || !term || !disbursementDate || !dueDate) {
+                showAlert('Please fill in all required fields', 'danger');
+                return;
+            }
+            
+            if (amount <= 0) {
+                showAlert('Loan amount must be greater than zero', 'danger');
+                return;
+            }
+            
+            // Check if member has sufficient savings (if required)
+            const savingsAccount = savings.find(account => account.memberId === memberId);
+            const minSavingsAmount = amount * (settings.minSavings / 100);
+            
+            if (savingsAccount && savingsAccount.balance < minSavingsAmount) {
+                showAlert(`Member must have at least ${settings.orgCurrency}${minSavingsAmount.toLocaleString()} in savings (${settings.minSavings}% of loan amount)`, 'danger');
+                return;
+            }
+            
+            const newLoan = {
+                id: generateId('LN'),
+                memberId,
+                amount,
+                purpose,
+                interestRate,
+                term,
+                disbursementDate,
+                dueDate,
+                balance: amount + (amount * (interestRate / 100)),
+                status: 'Active',
+                collateral,
+                guarantor: guarantor || '',
+                notes,
+                approvedBy: 'Admin User'
+            };
+            
+            loans.push(newLoan);
+            
+            // Create transaction for loan disbursement
+            const transaction = {
+                id: generateId('TRN'),
+                date: disbursementDate,
+                memberId,
+                type: 'Loan Disbursement',
+                amount,
+                description: purpose,
+                reference: newLoan.id
+            };
+            
+            transactions.push(transaction);
+            
+            saveData();
+            loadLoansTable();
+            loadTransactionsTable();
+            loadDashboardData();
+            
+            addLoanModal.style.display = 'none';
+            addLoanForm.reset();
+            
+            showAlert('Loan application saved successfully!', 'success');
+        }
+        
+        // Save new repayment
+        function saveRepayment() {
+            const loanId = document.getElementById('repaymentLoan').value;
+            const amount = parseFloat(document.getElementById('repaymentAmount').value);
+            const date = document.getElementById('repaymentDate').value;
+            const type = document.getElementById('repaymentType').value;
+            const method = document.getElementById('repaymentMethod').value;
+            const notes = document.getElementById('repaymentNotes').value.trim();
+            
+            if (!loanId || !amount || !date || !type || !method) {
+                showAlert('Please fill in all required fields', 'danger');
+                return;
+            }
+            
+            if (amount <= 0) {
+                showAlert('Amount must be greater than zero', 'danger');
+                return;
+            }
+            
+            // Find the loan
+            const loan = loans.find(l => l.id === loanId);
+            
+            if (!loan) {
+                showAlert('Loan not found', 'danger');
+                return;
+            }
+            
+            // Update loan balance
+            if (type === 'Principal' || type === 'Full Payment') {
+                loan.balance -= amount;
+            }
+            
+            // If full payment, mark as repaid
+            if (type === 'Full Payment' && loan.balance <= 0) {
+                loan.status = 'Repaid';
+                loan.balance = 0;
+            }
+            
+            // Check if loan is overdue
+            const today = new Date();
+            const dueDate = new Date(loan.dueDate);
+            
+            if (today > dueDate && loan.status === 'Active') {
+                loan.status = 'Overdue';
+            }
+            
+            // Create repayment record
+            const repayment = {
+                id: generateId('REP'),
+                loanId,
+                amount,
+                date,
+                type,
+                method,
+                notes,
+                receivedBy: 'Admin User'
+            };
+            
+            repayments.push(repayment);
+            
+            // Create transaction
+            const transaction = {
+                id: generateId('TRN'),
+                date,
+                memberId: loan.memberId,
+                type: 'Loan Repayment',
+                amount,
+                description: `Repayment for ${loan.id} (${type})`,
+                reference: repayment.id
+            };
+            
+            transactions.push(transaction);
+            
+            saveData();
+            loadLoansTable();
+            loadRepaymentsTable();
+            loadTransactionsTable();
+            loadDashboardData();
+            
+            addRepaymentModal.style.display = 'none';
+            addRepaymentForm.reset();
+            
+            showAlert('Repayment recorded successfully!', 'success');
+        }
+        
+        // View member details
+        function viewMember(memberId) {
+            const member = members.find(m => m.id === memberId);
+            
+            if (!member) {
+                showAlert('Member not found', 'danger');
+                return;
+            }
+            
+            // Set member details
+            document.getElementById('viewMemberName').textContent = `${member.firstName} ${member.lastName}`;
+            document.getElementById('viewMemberId').textContent = `Member ID: ${member.id}`;
+            document.getElementById('viewMemberContact').innerHTML = `
+                <i class="fas fa-phone"></i> ${member.phone}<br>
+                ${member.email ? `<i class="fas fa-envelope"></i> ${member.email}` : ''}
+            `;
+            document.getElementById('viewMemberGender').textContent = member.gender;
+            document.getElementById('viewMemberDob').textContent = formatDate(member.dob);
+            document.getElementById('viewMemberOccupation').textContent = member.occupation;
+            document.getElementById('viewMemberIdType').textContent = member.idType;
+            document.getElementById('viewMemberIdNumber').textContent = member.idNumber;
+            document.getElementById('viewMemberAddress').textContent = member.address;
+            document.getElementById('viewMemberJoinDate').textContent = formatDate(member.joinDate);
+            document.getElementById('viewMemberStatus').textContent = member.status;
+            document.getElementById('viewMemberStatus').className = `badge ${member.status === 'Active' ? 'badge-success' : 'badge-danger'}`;
+            
+            // Set member image
+            const img = document.querySelector('#viewMemberModal img');
+            img.src = `https://ui-avatars.com/api/?name=${member.firstName}+${member.lastName}&background=3498db&color=fff`;
+            
+            // Load member's savings
+            const savingsAccount = savings.find(account => account.memberId === memberId);
+            const savingsTable = document.getElementById('viewMemberSavings');
+            savingsTable.innerHTML = '';
+            
+            if (savingsAccount) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${savingsAccount.id}</td>
+                    <td>${settings.orgCurrency}${savingsAccount.balance.toLocaleString()}</td>
+                    <td>${formatDate(savingsAccount.lastActivity)}</td>
+                    <td><span class="badge ${savingsAccount.status === 'Active' ? 'badge-success' : 'badge-danger'}">${savingsAccount.status}</span></td>
+                `;
+                savingsTable.appendChild(row);
+            } else {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="4" class="text-center">No savings account found</td>';
+                savingsTable.appendChild(row);
+            }
+            
+            // Load member's loans
+            const memberLoans = loans.filter(loan => loan.memberId === memberId);
+            const loansTable = document.getElementById('viewMemberLoans');
+            loansTable.innerHTML = '';
+            
+            if (memberLoans.length > 0) {
+                memberLoans.forEach(loan => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${loan.id}</td>
+                        <td>${settings.orgCurrency}${loan.amount.toLocaleString()}</td>
+                        <td>${formatDate(loan.disbursementDate)}</td>
+                        <td>${formatDate(loan.dueDate)}</td>
+                        <td>${settings.orgCurrency}${loan.balance.toLocaleString()}</td>
+                        <td>
+                            <span class="badge ${
+                                loan.status === 'Active' ? 'badge-primary' : 
+                                loan.status === 'Repaid' ? 'badge-success' : 
+                                'badge-danger'
+                            }">${loan.status}</span>
+                        </td>
+                    `;
+                    loansTable.appendChild(row);
+                });
+            } else {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="6" class="text-center">No loans found</td>';
+                loansTable.appendChild(row);
+            }
+            
+            // Set edit button data-id
+            document.getElementById('editMemberBtn').setAttribute('data-id', memberId);
+            
+            viewMemberModal.style.display = 'flex';
+        }
+        
+        // Edit member
+        function editMember(memberId) {
+            // For simplicity, we'll just view the member
+            // In a real application, this would open an edit form
+            viewMember(memberId);
+        }
+        
+        // Delete member
+        function deleteMember(memberId) {
+            if (confirm('Are you sure you want to delete this member? This action cannot be undone.')) {
+                // Check if member has active loans or savings
+                const hasSavings = savings.some(account => account.memberId === memberId && account.balance > 0);
+                const hasLoans = loans.some(loan => loan.memberId === memberId && loan.status !== 'Repaid');
+                
+                if (hasSavings || hasLoans) {
+                    showAlert('Cannot delete member with active savings or loans', 'danger');
+                    return;
+                }
+                
+                // Remove member
+                members = members.filter(m => m.id !== memberId);
+                
+                // Remove member's savings account
+                savings = savings.filter(account => account.memberId !== memberId);
+                
+                saveData();
+                loadMembersTable();
+                loadSavingsTable();
+                loadDashboardData();
+                
+                showAlert('Member deleted successfully', 'success');
+            }
+        }
+        
+        // View savings account
+        function viewSavings(accountId) {
+            // Similar to viewMember, but for savings accounts
+            // Implementation omitted for brevity
+        }
+        
+        // Edit savings account
+        function editSavings(accountId) {
+            // Implementation omitted for brevity
+        }
+        
+        // View loan details
+        function viewLoan(loanId) {
+            const loan = loans.find(l => l.id === loanId);
+            
+            if (!loan) {
+                showAlert('Loan not found', 'danger');
+                return;
+            }
+            
+            const member = members.find(m => m.id === loan.memberId);
+            const guarantor = loan.guarantor ? members.find(m => m.id === loan.guarantor) : null;
+            
+            // Set loan details
+            document.getElementById('viewLoanNumber').textContent = `Loan ${loan.id}`;
+            document.getElementById('viewLoanMember').textContent = `Member: ${member ? `${member.firstName} ${member.lastName} (${member.id})` : 'Unknown'}`;
+            document.getElementById('viewLoanDisbursement').textContent = `Disbursed: ${formatDate(loan.disbursementDate)}`;
+            document.getElementById('viewLoanDueDate').textContent = `Due Date: ${formatDate(loan.dueDate)}`;
+            document.getElementById('viewLoanAmount').textContent = `${settings.orgCurrency}${loan.amount.toLocaleString()}`;
+            document.getElementById('viewLoanStatus').textContent = loan.status;
+            document.getElementById('viewLoanStatus').className = `badge ${
+                loan.status === 'Active' ? 'badge-primary' : 
+                loan.status === 'Repaid' ? 'badge-success' : 
+                'badge-danger'
+            }`;
+            
+            document.getElementById('viewLoanPurpose').textContent = loan.purpose;
+            document.getElementById('viewLoanInterestRate').textContent = `${loan.interestRate}%`;
+            document.getElementById('viewLoanTerm').textContent = `${loan.term} months`;
+            document.getElementById('viewLoanTotalRepayable').textContent = `${settings.orgCurrency}${(loan.amount + (loan.amount * (loan.interestRate / 100))).toLocaleString()}`;
+            document.getElementById('viewLoanBalance').textContent = `${settings.orgCurrency}${loan.balance.toLocaleString()}`;
+            document.getElementById('viewLoanCollateral').textContent = loan.collateral || 'None';
+            document.getElementById('viewLoanGuarantor').textContent = guarantor ? `${guarantor.firstName} ${guarantor.lastName} (${guarantor.id})` : 'None';
+            document.getElementById('viewLoanApprovedBy').textContent = loan.approvedBy;
+            document.getElementById('viewLoanNotes').textContent = loan.notes || 'None';
+            
+            // Generate repayment schedule
+            const scheduleTable = document.getElementById('viewLoanSchedule');
+            scheduleTable.innerHTML = '';
+            
+            if (loan.term > 0) {
+                const monthlyPayment = (loan.amount + (loan.amount * (loan.interestRate / 100))) / loan.term;
+                const disbursementDate = new Date(loan.disbursementDate);
+                
+                for (let i = 1; i <= loan.term; i++) {
+                    const dueDate = new Date(disbursementDate);
+                    dueDate.setMonth(disbursementDate.getMonth() + i);
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${formatDate(dueDate.toISOString().split('T')[0])}</td>
+                        <td>${settings.orgCurrency}${monthlyPayment.toLocaleString()}</td>
+                        <td>${settings.orgCurrency}${(loan.amount / loan.term).toLocaleString()}</td>
+                        <td>${settings.orgCurrency}${((loan.amount * (loan.interestRate / 100)) / loan.term).toLocaleString()}</td>
+                        <td><span class="badge badge-warning">Pending</span></td>
+                    `;
+                    scheduleTable.appendChild(row);
+                }
+            }
+            
+            // Load payment history
+            const loanRepayments = repayments.filter(repayment => repayment.loanId === loanId);
+            const paymentsTable = document.getElementById('viewLoanPayments');
+            paymentsTable.innerHTML = '';
+            
+            if (loanRepayments.length > 0) {
+                loanRepayments.forEach(repayment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${formatDate(repayment.date)}</td>
+                        <td>${settings.orgCurrency}${repayment.amount.toLocaleString()}</td>
+                        <td>${repayment.type}</td>
+                        <td>${repayment.method}</td>
+                        <td>${repayment.receivedBy}</td>
+                    `;
+                    paymentsTable.appendChild(row);
+                });
+            } else {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="5" class="text-center">No payments recorded yet</td>';
+                paymentsTable.appendChild(row);
+            }
+            
+            // Set add repayment button data-id
+            document.getElementById('addRepaymentFromLoanBtn').setAttribute('data-id', loanId);
+            
+            viewLoanModal.style.display = 'flex';
+        }
+        
+        // Edit loan
+        function editLoan(loanId) {
+            // For simplicity, we'll just view the loan
+            // In a real application, this would open an edit form
+            viewLoan(loanId);
+        }
+        
+        // Delete loan
+        function deleteLoan(loanId) {
+            if (confirm('Are you sure you want to delete this loan? This action cannot be undone.')) {
+                const loan = loans.find(l => l.id === loanId);
+                
+                if (loan && loan.status !== 'Repaid' && loan.balance > 0) {
+                    showAlert('Cannot delete loan that is not fully repaid', 'danger');
+                    return;
+                }
+                
+                // Remove loan
+                loans = loans.filter(l => l.id !== loanId);
+                
+                // Remove related repayments
+                repayments = repayments.filter(repayment => repayment.loanId !== loanId);
+                
+                saveData();
+                loadLoansTable();
+                loadRepaymentsTable();
+                loadDashboardData();
+                
+                showAlert('Loan deleted successfully', 'success');
+            }
+        }
+        
+        // Edit repayment
+        function editRepayment(repaymentId) {
+            // Implementation omitted for brevity
+        }
+        
+        // Delete repayment
+        function deleteRepayment(repaymentId) {
+            if (confirm('Are you sure you want to delete this repayment? This action cannot be undone.')) {
+                const repayment = repayments.find(r => r.id === repaymentId);
+                
+                if (!repayment) {
+                    showAlert('Repayment not found', 'danger');
+                    return;
+                }
+                
+                // Find the loan
+                const loan = loans.find(l => l.id === repayment.loanId);
+                
+                if (loan) {
+                    // Reverse the repayment
+                    if (repayment.type === 'Principal' || repayment.type === 'Full Payment') {
+                        loan.balance += repayment.amount;
+                    }
+                    
+                    // Update loan status if needed
+                    const today = new Date();
+                    const dueDate = new Date(loan.dueDate);
+                    
+                    if (today > dueDate && loan.balance > 0) {
+                        loan.status = 'Overdue';
+                    } else if (loan.balance <= 0) {
+                        loan.status = 'Repaid';
+                    } else {
+                        loan.status = 'Active';
+                    }
+                }
+                
+                // Remove repayment
+                repayments = repayments.filter(r => r.id !== repaymentId);
+                
+                // Remove related transaction
+                transactions = transactions.filter(t => t.reference !== repaymentId);
+                
+                saveData();
+                loadLoansTable();
+                loadRepaymentsTable();
+                loadTransactionsTable();
+                loadDashboardData();
+                
+                showAlert('Repayment deleted successfully', 'success');
+            }
+        }
+        
+        // Edit transaction
+        function editTransaction(transactionId) {
+            // Implementation omitted for brevity
+        }
+        
+        // Delete transaction
+        function deleteTransaction(transactionId) {
+            if (confirm('Are you sure you want to delete this transaction? This action cannot be undone.')) {
+                const transaction = transactions.find(t => t.id === transactionId);
+                
+                if (!transaction) {
+                    showAlert('Transaction not found', 'danger');
+                    return;
+                }
+                
+                // Handle different transaction types
+                if (transaction.type === 'Savings Deposit') {
+                    // Find savings account
+                    const savingsAccount = savings.find(account => account.memberId === transaction.memberId);
+                    
+                    if (savingsAccount) {
+                        savingsAccount.balance -= transaction.amount;
+                    }
+                } else if (transaction.type === 'Savings Withdrawal') {
+                    // Find savings account
+                    const savingsAccount = savings.find(account => account.memberId === transaction.memberId);
+                    
+                    if (savingsAccount) {
+                        savingsAccount.balance += transaction.amount;
+                    }
+                } else if (transaction.type === 'Loan Repayment') {
+                    // Find repayment
+                    const repayment = repayments.find(r => r.id === transaction.reference);
+                    
+                    if (repayment) {
+                        // Find the loan
+                        const loan = loans.find(l => l.id === repayment.loanId);
+                        
+                        if (loan) {
+                            // Reverse the repayment
+                            if (repayment.type === 'Principal' || repayment.type === 'Full Payment') {
+                                loan.balance += repayment.amount;
+                            }
+                            
+                            // Update loan status if needed
+                            const today = new Date();
+                            const dueDate = new Date(loan.dueDate);
+                            
+                            if (today > dueDate && loan.balance > 0) {
+                                loan.status = 'Overdue';
+                            } else if (loan.balance <= 0) {
+                                loan.status = 'Repaid';
+                            } else {
+                                loan.status = 'Active';
+                            }
+                        }
+                        
+                        // Remove repayment
+                        repayments = repayments.filter(r => r.id !== repayment.id);
+                    }
+                }
+                // Note: Loan Disbursement transactions shouldn't be deleted as they're tied to loans
+                
+                // Remove transaction
+                transactions = transactions.filter(t => t.id !== transactionId);
+                
+                saveData();
+                loadSavingsTable();
+                loadLoansTable();
+                loadRepaymentsTable();
+                loadTransactionsTable();
+                loadDashboardData();
+                
+                showAlert('Transaction deleted successfully', 'success');
+            }
+        }
+        
+        // Create backup
+        function createBackup() {
+            const backupName = document.getElementById('backupName').value.trim();
+            
+            if (!backupName) {
+                showAlert('Please enter a backup name', 'danger');
+                return;
+            }
+            
+            const backupData = {
+                name: backupName,
+                description: document.getElementById('backupDescription').value.trim(),
+                date: new Date().toISOString(),
+                data: {
+                    members,
+                    savings,
+                    loans,
+                    repayments,
+                    transactions,
+                    settings
+                }
+            };
+            
+            // Create a download link
+            const dataStr = JSON.stringify(backupData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            const exportName = `RuralUnitedBackup_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportName);
+            linkElement.click();
+            
+            backupModal.style.display = 'none';
+            showAlert('Backup created successfully!', 'success');
+        }
+        
+        // Restore backup
+        function restoreBackup() {
+            const fileInput = document.getElementById('restoreFile');
+            
+            if (!fileInput.files || fileInput.files.length === 0) {
+                showAlert('Please select a backup file', 'danger');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const backupData = JSON.parse(e.target.result);
+                    
+                    if (!backupData.data || 
+                        !backupData.data.members || 
+                        !backupData.data.savings || 
+                        !backupData.data.loans || 
+                        !backupData.data.repayments || 
+                        !backupData.data.transactions || 
+                        !backupData.data.settings) {
+                        showAlert('Invalid backup file format', 'danger');
+                        return;
+                    }
+                    
+                    if (confirm('Are you sure you want to restore this backup? All current data will be overwritten.')) {
+                        members = backupData.data.members;
+                        savings = backupData.data.savings;
+                        loans = backupData.data.loans;
+                        repayments = backupData.data.repayments;
+                        transactions = backupData.data.transactions;
+                        settings = backupData.data.settings;
+                        
+                        saveData();
+                        
+                        // Reload all data
+                        loadDashboardData();
+                        loadMembersTable();
+                        loadSavingsTable();
+                        loadLoansTable();
+                        loadRepaymentsTable();
+                        loadTransactionsTable();
+                        loadSettings();
+                        
+                        backupModal.style.display = 'none';
+                        showAlert('Data restored successfully!', 'success');
+                    }
+                } catch (error) {
+                    showAlert('Error reading backup file: ' + error.message, 'danger');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        // Reset system
+        function resetSystem() {
+            const confirmation = document.getElementById('resetConfirmation').value;
+            
+            if (confirmation !== 'RESET') {
+                showAlert('Please type "RESET" to confirm', 'danger');
+                return;
+            }
+            
+            if (confirm('Are you absolutely sure you want to reset the system? ALL DATA WILL BE LOST!')) {
+                // Clear all data
+                members = [];
+                savings = [];
+                loans = [];
+                repayments = [];
+                transactions = [];
+                
+                // Reset to default settings
+                settings = {
+                    orgName: "Rural United Real Estates",
+                    orgAddress: "",
+                    orgPhone: "",
+                    orgEmail: "",
+                    orgCurrency: "$",
+                    interestRate: 10,
+                    loanTerm: 6,
+                    penaltyRate: 2,
+                    minSavings: 20
+                };
+                
+                saveData();
+                
+                // Reload all data
+                loadDashboardData();
+                loadMembersTable();
+                loadSavingsTable();
+                loadLoansTable();
+                loadRepaymentsTable();
+                loadTransactionsTable();
+                loadSettings();
+                
+                backupModal.style.display = 'none';
+                showAlert('System has been reset to factory settings', 'success');
+            }
+        }
+        
+        // Generate savings report
+        function generateSavingsReport() {
+            const reportType = document.getElementById('savingsReportType').value;
+            let filteredSavings = [...savings];
+            let reportTitle = 'Savings Report';
+            
+            // Filter based on report type
+            if (reportType === 'custom') {
+                const startDate = document.getElementById('savingsStartDate').value;
+                const endDate = document.getElementById('savingsEndDate').value;
+                
+                if (!startDate || !endDate) {
+                    showAlert('Please select both start and end dates', 'danger');
+                    return;
+                }
+                
+                filteredSavings = filteredSavings.filter(account => {
+                    return account.lastActivity >= startDate && account.lastActivity <= endDate;
+                });
+                
+                reportTitle = `Savings Report (${formatDate(startDate)} to ${formatDate(endDate)})`;
+            } else {
+                const today = new Date();
+                let startDate = new Date();
+                
+                switch (reportType) {
+                    case 'daily':
+                        startDate.setDate(today.getDate() - 1);
+                        reportTitle = 'Daily Savings Report';
+                        break;
+                    case 'weekly':
+                        startDate.setDate(today.getDate() - 7);
+                        reportTitle = 'Weekly Savings Report';
+                        break;
+                    case 'monthly':
+                        startDate.setMonth(today.getMonth() - 1);
+                        reportTitle = 'Monthly Savings Report';
+                        break;
+                    case 'yearly':
+                        startDate.setFullYear(today.getFullYear() - 1);
+                        reportTitle = 'Yearly Savings Report';
+                        break;
+                }
+                
+                const startDateStr = startDate.toISOString().split('T')[0];
+                const endDateStr = today.toISOString().split('T')[0];
+                
+                filteredSavings = filteredSavings.filter(account => {
+                    return account.lastActivity >= startDateStr && account.lastActivity <= endDateStr;
+                });
+            }
+            
+            // Generate report HTML
+            let reportHTML = `
+                <h4>${reportTitle}</h4>
+                <p class="text-muted">Generated on ${formatDate(new Date().toISOString().split('T')[0])}</p>
+                <hr>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Account No.</th>
+                                <th>Member</th>
+                                <th>Balance</th>
+                                <th>Last Activity</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            let totalBalance = 0;
+            
+            filteredSavings.forEach(account => {
+                const member = members.find(m => m.id === account.memberId);
+                const memberName = member ? `${member.firstName} ${member.lastName}` : 'Unknown';
+                
+                totalBalance += account.balance;
+                
+                reportHTML += `
+                    <tr>
+                        <td>${account.id}</td>
+                        <td>${memberName}</td>
+                        <td>${settings.orgCurrency}${account.balance.toLocaleString()}</td>
+                        <td>${formatDate(account.lastActivity)}</td>
+                        <td><span class="badge ${account.status === 'Active' ? 'badge-success' : 'badge-danger'}">${account.status}</span></td>
+                    </tr>
+                `;
+            });
+            
+            reportHTML += `
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="2">Total</th>
+                                <th>${settings.orgCurrency}${totalBalance.toLocaleString()}</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <button class="btn btn-primary mt-3" onclick="window.print()"><i class="fas fa-print"></i> Print Report</button>
+            `;
+            
+            document.getElementById('reportResults').innerHTML = reportHTML;
+        }
+        
+        // Generate loans report
+        function generateLoansReport() {
+            const reportType = document.getElementById('loansReportType').value;
+            let filteredLoans = [...loans];
+            let reportTitle = 'Loans Report';
+            
+            // Filter based on report type
+            if (reportType === 'custom') {
+                const startDate = document.getElementById('loansStartDate').value;
+                const endDate = document.getElementById('loansEndDate').value;
+                
+                if (!startDate || !endDate) {
+                    showAlert('Please select both start and end dates', 'danger');
+                    return;
+                }
+                
+                filteredLoans = filteredLoans.filter(loan => {
+                    return loan.disbursementDate >= startDate && loan.disbursementDate <= endDate;
+                });
+                
+                reportTitle = `Loans Report (${formatDate(startDate)} to ${formatDate(endDate)})`;
+            } else {
+                switch (reportType) {
+                    case 'active':
+                        filteredLoans = filteredLoans.filter(loan => loan.status === 'Active');
+                        reportTitle = 'Active Loans Report';
+                        break;
+                    case 'overdue':
+                        filteredLoans = filteredLoans.filter(loan => loan.status === 'Overdue');
+                        reportTitle = 'Overdue Loans Report';
+                        break;
+                    case 'repaid':
+                        filteredLoans = filteredLoans.filter(loan => loan.status === 'Repaid');
+                        reportTitle = 'Repaid Loans Report';
+                        break;
+                    // 'all' shows all loans
+                }
+            }
+            
+            // Generate report HTML
+            let reportHTML = `
+                <h4>${reportTitle}</h4>
+                <p class="text-muted">Generated on ${formatDate(new Date().toISOString().split('T')[0])}</p>
+                <hr>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Loan No.</th>
+                                <th>Member</th>
+                                <th>Amount</th>
+                                <th>Disbursed</th>
+                                <th>Due Date</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            let totalAmount = 0;
+            let totalBalance = 0;
+            
+            filteredLoans.forEach(loan => {
+                const member = members.find(m => m.id === loan.memberId);
+                const memberName = member ? `${member.firstName} ${member.lastName}` : 'Unknown';
+                
+                totalAmount += loan.amount;
+                totalBalance += loan.balance;
+                
+                reportHTML += `
+                    <tr>
+                        <td>${loan.id}</td>
+                        <td>${memberName}</td>
+                        <td>${settings.orgCurrency}${loan.amount.toLocaleString()}</td>
+                        <td>${formatDate(loan.disbursementDate)}</td>
+                        <td>${formatDate(loan.dueDate)}</td>
+                        <td>${settings.orgCurrency}${loan.balance.toLocaleString()}</td>
+                        <td>
+                            <span class="badge ${
+                                loan.status === 'Active' ? 'badge-primary' : 
+                                loan.status === 'Repaid' ? 'badge-success' : 
+                                'badge-danger'
+                            }">${loan.status}</span>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            reportHTML += `
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="2">Total</th>
+                                <th>${settings.orgCurrency}${totalAmount.toLocaleString()}</th>
+                                <th colspan="2"></th>
+                                <th>${settings.orgCurrency}${totalBalance.toLocaleString()}</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <button class="btn btn-primary mt-3" onclick="window.print()"><i class="fas fa-print"></i> Print Report</button>
+            `;
+            
+            document.getElementById('reportResults').innerHTML = reportHTML;
+        }
+        
+        // Filter members table
+        function filterMembers() {
+            const searchTerm = document.getElementById('memberSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#membersTable tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+        
+        // Filter savings table
+        function filterSavings() {
+            const searchTerm = document.getElementById('savingsSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#savingsTable tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+        
+        // Filter loans table
+        function filterLoans() {
+            const searchTerm = document.getElementById('loanSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#loansTable tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+        
+        // Filter repayments table
+        function filterRepayments() {
+            const searchTerm = document.getElementById('repaymentSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#repaymentsTable tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+        
+        // Filter transactions table
+        function filterTransactions() {
+            const searchTerm = document.getElementById('transactionSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#transactionsTable tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+        
+        // Format date
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+        
+        // Show alert message
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            
+            const contentWrapper = document.querySelector('.content-wrapper');
+            contentWrapper.insertBefore(alert, contentWrapper.firstChild);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+        
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
